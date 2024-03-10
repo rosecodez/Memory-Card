@@ -4,10 +4,12 @@ import './index.css'
 import CreateHeader from './Components/Header.jsx'
 import ImagesContainer from './Components/ImagesContainer.jsx'
 import Scoreboard from './Components/Scoreboard.jsx'
+import Image from './Components/Image.jsx'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <CreateHeader />
     <Scoreboard />
-    <ImagesContainer />
+    <ImagesContainer/>
+    <Image />
   </React.StrictMode>,
 )
