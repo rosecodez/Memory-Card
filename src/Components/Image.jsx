@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-export default function Image() {
+export default function AddImage() {
     // pokemon url images
     const pokemons = [
         'https://pokeapi.co/api/v2/pokemon-form/382/',
@@ -16,7 +16,8 @@ export default function Image() {
         'https://pokeapi.co/api/v2/pokemon-form/37/',
         'https://pokeapi.co/api/v2/pokemon-form/43/'
     ]
-    
+    const [pokemonImages, setPokemonImages] = useState([]);
+
     // forms -> "front_default":"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png"
     useEffect(() => {
         // // asynchronous function to fetch pokemon of the respective url
@@ -29,13 +30,20 @@ export default function Image() {
         };
         // the pokemons.map((item) creates an array of promises by mapping each URL
         // to the result of the fetchPokemon function. Promise.all then waits for all these promises to settle
-        // (either resolve or reject)
+
         Promise.all(pokemons.map((item) => fetchPokemon(item)))
         .then((res) => {
-            console.log(res);
+            const images = res.map(pokemon => pokemon.sprites.front_default);
+            setPokemonImages(images);
         })
         .catch((err) => console.error(err));
-        
-    }, )
- 
+    }, []);
+
+    return (
+        <div id="images-container">
+            {pokemonImages.map((imageUrl, index) => (
+                <img key={index} src={imageUrl} alt={`Pokemon ${index + 1}`} />
+            ))}
+        </div>
+    );
 }
