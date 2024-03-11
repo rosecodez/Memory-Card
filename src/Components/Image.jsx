@@ -39,10 +39,21 @@ export default function AddImage() {
         .catch((err) => console.error(err));
     }, []);
 
+    // handle image click
+    const handleImageClick = () => {
+        // shuffle array of image urls
+        const shuffledImages = [...pokemonImages]
+        for (let i = shuffledImages.length - 1; i > 0; i--) {
+            const y = Math.floor(Math.random() * (i+1));
+            [shuffledImages[i], shuffledImages[y]] = [shuffledImages[y], shuffledImages[i]]
+        }
+        // update state  with shuffled array
+        setPokemonImages(shuffledImages);
+    }
     return (
         <div id="images-container">
             {pokemonImages.map((imageUrl, index) => (
-                <img key={index} src={imageUrl} alt={`Pokemon ${index + 1}`} />
+                <img key={index} src={imageUrl} alt={`Pokemon ${index + 1}`} onClick = {handleImageClick} style={{ cursor: "pointer" }} />
             ))}
         </div>
     );
